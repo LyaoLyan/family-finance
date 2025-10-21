@@ -55,7 +55,7 @@ const Dashboard = () => {
       </div>
       
       <div className="status">
-        ✅ Данные загружены из бэкенда!
+        ✅ Данные загружены из бэкенда!!!
       </div>
     </div>
   );
