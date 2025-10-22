@@ -99,7 +99,24 @@ app.get('/api/dashboard', async (req, res) => {
     
     res.json(dashboard);
 });
-
+app.get('/api/categories', async (req, res) => {
+const data = await pool.query(`
+    SELECT 
+        id,
+        name,
+        type,
+        icon
+      FROM categories
+      ORDER BY name DESC
+    `);
+     const categories = data.rows.map(row => ({
+      id: row.id,
+      name: row.name,
+      type: row.type,
+      icon: row.icon
+    }));
+    res.json(categories);
+});
 // API для добавления новой транзакции
 app.post('/api/add-transaction', async(req, res) => {
   let owner = req.body.owner;
@@ -107,8 +124,8 @@ app.post('/api/add-transaction', async(req, res) => {
     return res.status(403).json(errorResponse)
   }
   await pool.query(
-  "INSERT INTO transactions (date, owner, category_id, amount, description) VALUES (NOW(), $1, $2, $3, $4)",
-  [req.body.owner, req.body.category_id, req.body.amount, req.body.description]
+  "INSERT INTO transactions (date, owner, category_id, amount, description) VALUES ($1, $2, $3, $4, $5)",
+  [req.body.date, req.body.owner, req.body.category_id, req.body.amount, req.body.description]
 );
   res.json(successResponse);
 });

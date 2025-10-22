@@ -1,32 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import './TransactionForm.css';
 
-const TransactionForm = ({ onTransactionAdded, categories }) => {
+const TransactionForm = ({ onTransactionAdded, categories: propCategories }) => {
   const [formData, setFormData] = useState({
-    date: new Date().toISOString().split('T')[0], // сегодняшняя дата
+    date: new Date().toISOString().split('T')[0],
     owner: 'me',
     category_id: '',
     amount: '',
     description: ''
   });
 
+  const [categories, setCategories] = useState(propCategories || []);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
   // Загружаем категории если не переданы через props
   useEffect(() => {
-    if (!categories || categories.length === 0) {
+    if (!propCategories || propCategories.length === 0) {
       loadCategories();
+    } else {
+      setCategories(propCategories);
     }
-  }, []);
+  }, [propCategories]);
 
   const loadCategories = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/categories');
-      const data = await response.json();
-      // Если в будущем добавим API для категорий
+      if (response.ok) {
+        const data = await response.json();
+        setCategories(data);
+      } else {
+        throw new Error('Ошибка загрузки категорий');
+      }
     } catch (error) {
       console.error('Ошибка загрузки категорий:', error);
+      setMessage('❌ Ошибка загрузки категорий');
     }
   };
 
@@ -44,16 +52,18 @@ const TransactionForm = ({ onTransactionAdded, categories }) => {
     setMessage('');
 
     try {
-      // Преобразуем сумму в число
+      // Находим выбранную категорию для определения типа (income/expense)
+      const selectedCategory = categories.find(cat => cat.id === parseInt(formData.category_id));
+      
       const transactionData = {
         ...formData,
-        amount: formData.owner === 'income' ? 
+        amount: selectedCategory?.type === 'income' ? 
           Math.abs(parseFloat(formData.amount)) : 
           -Math.abs(parseFloat(formData.amount)),
         category_id: parseInt(formData.category_id)
       };
 
-      const response = await fetch('http://localhost:5000/api/transactions', {
+      const response = await fetch('http://localhost:5000/api/add-transaction', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,10 +99,10 @@ const TransactionForm = ({ onTransactionAdded, categories }) => {
     }
   };
 
-  // Фильтруем категории по типу владельца
-  const filteredCategories = categories ? categories.filter(cat => 
-    cat.owner_type === 'shared' || cat.owner_type === formData.owner
-  ) : [];
+  // Поскольку API не возвращает owner_type, убираем фильтрацию по владельцу
+  // и просто группируем категории по типу
+  const incomeCategories = categories.filter(cat => cat.type === 'income');
+  const expenseCategories = categories.filter(cat => cat.type === 'expense');
 
   return (
     <div className="transaction-form">
@@ -136,11 +146,26 @@ const TransactionForm = ({ onTransactionAdded, categories }) => {
               required
             >
               <option value="">Выберите категорию</option>
-              {filteredCategories.map(category => (
-                <option key={category.id} value={category.id}>
-                  {category.icon} {category.name}
-                </option>
-              ))}
+              
+              {incomeCategories.length > 0 && (
+                <optgroup label="💰 Доходы">
+                  {incomeCategories.map(category => (
+                    <option key={category.id} value={category.id}>
+                      {category.icon} {category.name}
+                    </option>
+                  ))}
+                </optgroup>
+              )}
+              
+              {expenseCategories.length > 0 && (
+                <optgroup label="💸 Расходы">
+                  {expenseCategories.map(category => (
+                    <option key={category.id} value={category.id}>
+                      {category.icon} {category.name}
+                    </option>
+                  ))}
+                </optgroup>
+              )}
             </select>
           </div>
 
