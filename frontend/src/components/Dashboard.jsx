@@ -30,16 +30,16 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <h1>💰 Family Finance Dashboard</h1>
+        <h1>💰 Family Finance Dashboard</h1>
       
-      <div className="metrics-grid">
+        <div className="metrics-grid">
         <div className="metric-card">
-          <h3>Текущий баланс</h3>
-          <div className="amount">₽{dashboardData.totalBalance.toLocaleString()}</div>
+            <h3>Текущий баланс</h3>
+            <div className="amount">₽{dashboardData.totalBalance.toLocaleString()}</div>
         </div>
         
         <div className="metric-card">
-          <h3>Мои расходы</h3>
+            <h3>Мои расходы</h3>
           <div className="amount">₽{dashboardData.myExpenses.toLocaleString()}</div>
         </div>
         
@@ -52,10 +52,6 @@ const Dashboard = () => {
           <h3>Семейные расходы</h3>
           <div className="amount">₽{dashboardData.sharedExpenses.toLocaleString()}</div>
         </div>
-      </div>
-      
-      <div className="status">
-        ✅ Данные загружены из бэкенда!!!
       </div>
     </div>
   );
