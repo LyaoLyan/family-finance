@@ -34,7 +34,7 @@ const TransactionForm = ({ onTransactionAdded, categories: propCategories }) => 
       }
     } catch (error) {
       console.error('Ошибка загрузки категорий:', error);
-      setMessage('❌ Ошибка загрузки категорий');
+      setMessage('Ошибка загрузки категорий');
     }
   };
 

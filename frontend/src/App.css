@@ -1,0 +1,98 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+.title-menu {
+    display: flex;
+}
+.main-nav {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.nav-list {
+    display: flex;
+    margin-left: 30px;
+}
+.nav-btn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  background: none;
+  border: 2px solid transparent;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #6c757d;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  color: #495057;
+}
+
+.nav-btn.active {
+  color: rgba(105, 114, 218, 1);
+  font-weight: 600;
+}
+.add-transaction-btn {
+  background-color: rgba(105, 114, 218, 0.6);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.add-transaction-btn:hover {
+  background-color: rgba(105, 114, 218, 1);
+}
+
+/* Стили для модального окна */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-btn:hover {
+  color: #000;
+}

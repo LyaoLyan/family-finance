@@ -144,5 +144,4 @@ app.post('/api/test', (req, res) => {
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`🎯 Сервер запущен: http://localhost:${PORT}`);
-  console.log(`📊 API дашборда: http://localhost:${PORT}/api/dashboard`);
 });

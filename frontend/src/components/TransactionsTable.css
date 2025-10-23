@@ -12,9 +12,9 @@
 
 .table-container {
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
+  border-radius: 20px;
+  border: 2px solid #E1E1E1;
+  padding: 10px;
 }
 
 table {
@@ -23,8 +23,6 @@ table {
 }
 
 th {
-  background: #34495e;
-  color: white;
   padding: 15px;
   text-align: left;
   font-weight: 500;
@@ -50,12 +48,12 @@ tr:hover {
 }
 
 .income {
-  color: #27ae60;
+  color: #69DA93;
   font-weight: bold;
 }
 
 .expense {
-  color: #e74c3c;
+  color: #DA696B;
   font-weight: bold;
 }
 

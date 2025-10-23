@@ -46,7 +46,7 @@ const TransactionsTable = () => {
 
   return (
     <div className="transactions-table">
-      <h2>📋 История операций</h2>
+      <h2>История операций</h2>
       
       <div className="table-container">
         <table>

@@ -30,8 +30,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-        <h1>💰 Family Finance Dashboard</h1>
-      
+        <h2>Дашборд</h2>
         <div className="metrics-grid">
         <div className="metric-card">
             <h3>Текущий баланс</h3>
